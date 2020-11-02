@@ -5,6 +5,9 @@
  */
 package es.uva.dbcs.practica1.despliegue;
 
+import es.uva.dbcs.practica1.dominio.Usuario;
+import es.uva.dbcs.practica1.persistencia.UsuarioFacadeLocal;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -13,7 +16,27 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class CompUsuarioControlador implements CompUsuarioControladorLocal {
+    @EJB
+    private UsuarioFacadeLocal uF;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public void create(Usuario usuario) {
+        uF.create(usuario);
+    }
+
+    @Override
+    public Usuario retrieve(int id) {
+        return uF.find(id);
+    }
+
+    @Override
+    public void update(Usuario usuario) {
+        uF.edit(usuario);
+    }
+
+    @Override
+    public void delete(Usuario usuario) {
+        uF.remove(usuario);
+    }
+    
 }

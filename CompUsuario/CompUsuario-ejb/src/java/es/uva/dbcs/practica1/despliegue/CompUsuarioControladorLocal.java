@@ -5,6 +5,7 @@
  */
 package es.uva.dbcs.practica1.despliegue;
 
+import es.uva.dbcs.practica1.dominio.Usuario;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +14,13 @@ import javax.ejb.Local;
  */
 @Local
 public interface CompUsuarioControladorLocal {
+
+    void create(Usuario usuario);
+
+    Usuario retrieve(int id);
+
+    void update(Usuario usuario);
+
+    void delete(Usuario usuario);
     
 }
