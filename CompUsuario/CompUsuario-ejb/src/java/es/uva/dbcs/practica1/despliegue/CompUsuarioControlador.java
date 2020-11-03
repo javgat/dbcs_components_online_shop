@@ -5,6 +5,8 @@
  */
 package es.uva.dbcs.practica1.despliegue;
 
+import es.uva.dbcs.practica1.dominio.Empleado;
+import es.uva.dbcs.practica1.dominio.Empresa;
 import es.uva.dbcs.practica1.dominio.Usuario;
 import es.uva.dbcs.practica1.persistencia.UsuarioFacadeLocal;
 import javax.ejb.EJB;
@@ -25,7 +27,7 @@ public class CompUsuarioControlador implements CompUsuarioControladorLocal {
     }
 
     @Override
-    public Usuario retrieve(int id) {
+    public Usuario retrieve(String id) {
         return uF.find(id);
     }
 
@@ -38,5 +40,17 @@ public class CompUsuarioControlador implements CompUsuarioControladorLocal {
     public void delete(Usuario usuario) {
         uF.remove(usuario);
     }
+
+    @Override
+    public Empresa getEmpresa(String nifcif) {
+        return uF.find(nifcif).getEmpresa();
+    }
+
+    @Override
+    public Empleado getEmpleado(String nifcif) {
+        return uF.find(nifcif).getEmpleado();
+    }
+    
+    
     
 }

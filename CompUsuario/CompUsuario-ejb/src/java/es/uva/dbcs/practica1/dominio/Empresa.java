@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -42,7 +43,7 @@ public class Empresa implements Serializable {
     @Column(name = "ESPROVEEDOR")
     private Short esproveedor;
     @JoinColumn(name = "NIFCIF", referencedColumnName = "NIFCIF", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch=FetchType.EAGER)
     private Usuario usuario;
 
     public Empresa() {

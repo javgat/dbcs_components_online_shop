@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -46,10 +47,10 @@ public class Empleado implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechacontratacion;
     @JoinColumn(name = "ROL", referencedColumnName = "IDROL")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch=FetchType.EAGER)
     private Rolempleado rol;
     @JoinColumn(name = "NIFCIF", referencedColumnName = "NIFCIF", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch=FetchType.EAGER)
     private Usuario usuario;
 
     public Empleado() {
