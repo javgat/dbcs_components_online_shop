@@ -18,3 +18,6 @@
 /CompCatalogo/CompCatalogo-war/dist/
 /CompCatalogo/CompCatalogo-ejb/dist/
 /CompCatalogo/dist/
+/CompPedido/nbproject/private/
+/CompPedido/CompPedido-war/nbproject/private/
+/CompPedido/CompPedido-ejb/nbproject/private/
