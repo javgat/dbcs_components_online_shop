@@ -18,9 +18,9 @@ public interface CompCatalogoControladorRemote {
 
     List<Configuracionpc> getCatalogo();
 
-    Boolean addConfiguracion(int velCPU, int capRAM, int velTarGraf, int memTarGraf, short idTipoCPU, java.util.List<Integer> idsDescrComp);
+    Boolean addConfiguracion(int velCPU, int capRAM, int capDD, int velTarGraf, int memTarGraf, short idTipoCPU, java.util.List<Integer> idsDescrComp);
 
-    Boolean editConfiguracion(int idConfiguracion, int velCPU, int capRAM, int capDD, double velTarGraf, int memTarGraf, short idTipoCPU);
+    Boolean editConfiguracion(int idConfiguracion, int velCPU, int capRAM, int capDD, int velTarGraf, int memTarGraf, short idTipoCPU);
 
     float getPrecioTotal(int idConfiguracion);
     
