@@ -1,3 +1,16 @@
+drop table PEDIDOPC;
+drop table ESTADOVENTAPCS;
+drop table COMPONENTESENCONFIGURACION;
+drop table DESCRIPCIONCOMPONENTE;
+drop table TIPOCOMPONENTE;
+drop table CONFIGURACIONPC;
+drop table CPU;
+drop table EMPRESA;
+drop table EMPLEADO;
+drop table ROLEMPLEADO;
+drop table USUARIO;
+
+
 create table USUARIO
 (
 	NIFCIF VARCHAR(9) not null primary key,
@@ -109,7 +122,6 @@ insert into descripcioncomponente (iddescripcion,tipo,marca,modelo,precio,caract
     (888,2,'marca5','modelo8',234,'caract 8'),
     (999,3,'marca8','modelo8',88,'caract 9');
 
-
 create table COMPONENTESENCONFIGURACION
 (
 	IDDESCRIPCION NUMERIC(5) not null,
@@ -148,7 +160,6 @@ INSERT INTO ESTADOVENTAPCs VALUES
         (3,'Completado'),
         (4,'Enviado'),
         (5,'Entregado');
-
 
 create table PEDIDOPC
 (

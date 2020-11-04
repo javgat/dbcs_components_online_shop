@@ -38,4 +38,13 @@ public class PedidopcFacade extends AbstractFacade<Pedidopc> implements Pedidopc
         return peds;
     }
     
+    @Override
+    public Pedidopc getPedidoNifId(String nifcif, int idConfig){
+        Query query = em.createNamedQuery("Pedidopc.findByEncargadoConfig");
+        query.setParameter("encargadopor", nifcif);
+        query.setParameter("configuracionsolicitada", idConfig);
+        Pedidopc ped = (Pedidopc) query.getResultList().get(0);
+        return ped;
+    }
+    
 }

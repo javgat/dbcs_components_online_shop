@@ -30,8 +30,11 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
         try{
             List<Pedidopc> peds = ppF.pedidosNif(nifcif); //Este el namedqueries
             float precio = 0.0F;
+            if(peds.isEmpty())
+                return -1.0F; //No estoy de acuerdo pero lo detecta como error?
 
             for(Pedidopc ped : peds){
+                if(ped.getEstado().getNombreestadoventa().equals("Completado"))
                 precio+= cccR.getPrecioTotal(ped.getConfiguracionsolicitada());
             }
             return precio;
@@ -45,7 +48,7 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
         List<Pedidopc> peds = ppF.findAll();
         int id = 0;
         for(Pedidopc ped:peds){
-            if (id < ped.getIdpedido())
+            if (id <= ped.getIdpedido())
                 id=ped.getIdpedido()+1;
         }
         return id;
@@ -59,7 +62,7 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
         try{
             ppF.create(ped);
         }catch(Exception e){
-            System.err.println(e);
+            System.err.println("ERROR ADDPEDIDO "+e);
             return false;
         }
         return true;
@@ -68,7 +71,7 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
     @Override
     public Boolean delPedido(int idConfiguracion, String nifcif) {
         try{
-            Pedidopc ped = ppF.pedidosNif(nifcif).get(0);//namedqueries
+            Pedidopc ped = ppF.getPedidoNifId(nifcif, idConfiguracion);//namedqueries
             ppF.remove(ped);
         }catch(Exception e){
             System.err.println(e);

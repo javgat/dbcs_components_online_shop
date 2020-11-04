@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools | Templates   
  * and open the template in the editor.
  */
 package es.uva.dbcs.practica1.dominio;
@@ -29,7 +29,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Pedidopc.findByIdpedido", query = "SELECT p FROM Pedidopc p WHERE p.idpedido = :idpedido"),
     @NamedQuery(name = "Pedidopc.findByCantidadsolicitada", query = "SELECT p FROM Pedidopc p WHERE p.cantidadsolicitada = :cantidadsolicitada"),
     @NamedQuery(name = "Pedidopc.findByConfiguracionsolicitada", query = "SELECT p FROM Pedidopc p WHERE p.configuracionsolicitada = :configuracionsolicitada"),
-    @NamedQuery(name = "Pedidopc.findByEncargadopor", query = "SELECT p FROM Pedidopc p WHERE p.encargadopor = :encargadopor")})
+    @NamedQuery(name = "Pedidopc.findByEncargadopor", query = "SELECT p FROM Pedidopc p WHERE p.encargadopor = :encargadopor"),
+    @NamedQuery(name = "Pedidopc.findByEncargadoConfig", query = "SELECT p FROM Pedidopc p WHERE p.encargadopor = :encargadopor AND p.configuracionsolicitada = :configuracionsolicitada")})
 public class Pedidopc implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

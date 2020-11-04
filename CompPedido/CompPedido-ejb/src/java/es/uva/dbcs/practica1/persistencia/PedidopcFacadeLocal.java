@@ -32,4 +32,6 @@ public interface PedidopcFacadeLocal {
 
     List<Pedidopc> pedidosNif(String nifcif);
     
+    Pedidopc getPedidoNifId(String nifcif, int idConfig);
+    
 }
