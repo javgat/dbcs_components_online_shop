@@ -18,7 +18,7 @@ import javax.ejb.Stateless;
  * @author Javier
  */
 @Stateless
-public class CompPedidoControlador implements CompPedidoControladorRemote {
+public class CompPedidoControlador implements CompPedidoControladorLocal {
     @EJB
     private PedidopcFacadeLocal ppF;    
     

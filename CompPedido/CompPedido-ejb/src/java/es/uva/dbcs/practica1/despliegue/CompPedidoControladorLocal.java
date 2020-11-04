@@ -12,7 +12,7 @@ import javax.ejb.Remote;
  * @author Javier
  */
 @Remote
-public interface CompPedidoControladorRemote {
+public interface CompPedidoControladorLocal {
 
     float importeAbonar(String nifcif);
 

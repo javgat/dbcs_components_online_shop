@@ -5,7 +5,7 @@
  */
 package es.uva.dbcs.practica1.prueba;
 
-import es.uva.dbcs.practica1.despliegue.CompPedidoControladorRemote;
+import es.uva.dbcs.practica1.despliegue.CompPedidoControladorLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "pruebaCompPedido", urlPatterns = {"/pruebaCompPedido"})
 public class pruebaCompPedido extends HttpServlet {
     @EJB
-    private CompPedidoControladorRemote fachadaCompPedido;
+    private CompPedidoControladorLocal fachadaCompPedido;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
