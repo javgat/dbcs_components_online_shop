@@ -7,6 +7,7 @@ package es.uva.dbcs.practica1.despliegue;
 
 import es.uva.dbcs.practica1.dominio.Pedidopc;
 import es.uva.dbcs.practica1.persistencia.PedidopcFacadeLocal;
+//import es.uva.dbcs.practica1.despliegue.CompCatalogoControladorRemote;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,17 +21,22 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
     @EJB
     private PedidopcFacadeLocal ppF;    
     
-    
+    @EJB
+    private CompCatalogoControladorRemote cccR;
     
     @Override
     public float importeAbonar(String nifcif) {
-        List<Pedidopc> peds = ppF.pedidosNif(nifcif);
-        float precio = 0.0F;
-        
-        for(Pedidopc ped : peds){
-            precio+= 0;
+        try{
+            List<Pedidopc> peds = ppF.pedidosNif(nifcif);
+            float precio = 0.0F;
+
+            for(Pedidopc ped : peds){
+                precio+= cccR.getPrecioTotal(ped.getConfiguracionsolicitada());
+            }
+            return precio;
+        }catch(Exception e){
+            return -1.0F;
         }
-        return 0.0F;
     }
 
     @Override
