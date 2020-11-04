@@ -31,17 +31,10 @@ public class CompCatalogoControlador implements CompCatalogoControladorRemote {
 
     private Integer newIdConfig(){
         List<Configuracionpc> cat = getCatalogo();
-        Integer id = 0;
-        boolean rep=true;
-        while(rep==true){
-            rep=false;
-            id++;
-            for(Configuracionpc conf : cat){
-                if(id==conf.getIdconfiguracion()){
-                    rep=true;
-                    break;
-                }
-            }
+        int id = 0;
+        for(Configuracionpc c:cat){
+            if (id <= c.getIdconfiguracion())
+                id=c.getIdconfiguracion()+1;
         }
         return id;
     }

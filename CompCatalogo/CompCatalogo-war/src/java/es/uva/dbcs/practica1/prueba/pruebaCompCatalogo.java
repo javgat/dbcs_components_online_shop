@@ -81,8 +81,8 @@ public class pruebaCompCatalogo extends HttpServlet {
                 out.println("<p> Numero de productos: " + catalogo.size() + "</p>");
                 out.println("<p> Velocidad CPU primer producto: " + catalogo.get(0).getVelocidadcpu());
                 out.println("<p> Tablas asociadas. Tipo CPU: " + catalogo.get(0).getTipocpu().getNombretipocpu());
-                /*out.println("<p> Tablas asociadas. Precio: " + catalogo.get(0).
-                        getDescripcioncomponenteList().get(0).getPrecio() + "</p>");*/
+                out.println("<p> Tablas asociadas. Precio: " + catalogo.get(0).
+                        getDescripcioncomponenteCollection().iterator().next()/*get(0)*/.getPrecio() + "</p>");
             } else {
                 out.println("<p> ERROR el catalogo esta vacio </p>");
             }
