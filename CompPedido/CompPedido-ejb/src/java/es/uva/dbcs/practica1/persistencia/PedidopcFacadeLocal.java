@@ -29,5 +29,7 @@ public interface PedidopcFacadeLocal {
     List<Pedidopc> findRange(int[] range);
 
     int count();
+
+    List<Pedidopc> pedidosNif(String nifcif);
     
 }

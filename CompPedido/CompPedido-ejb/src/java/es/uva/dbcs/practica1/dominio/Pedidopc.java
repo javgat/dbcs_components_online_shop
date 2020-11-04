@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -26,7 +27,9 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Pedidopc.findAll", query = "SELECT p FROM Pedidopc p"),
     @NamedQuery(name = "Pedidopc.findByIdpedido", query = "SELECT p FROM Pedidopc p WHERE p.idpedido = :idpedido"),
-    @NamedQuery(name = "Pedidopc.findByCantidadsolicitada", query = "SELECT p FROM Pedidopc p WHERE p.cantidadsolicitada = :cantidadsolicitada")})
+    @NamedQuery(name = "Pedidopc.findByCantidadsolicitada", query = "SELECT p FROM Pedidopc p WHERE p.cantidadsolicitada = :cantidadsolicitada"),
+    @NamedQuery(name = "Pedidopc.findByConfiguracionsolicitada", query = "SELECT p FROM Pedidopc p WHERE p.configuracionsolicitada = :configuracionsolicitada"),
+    @NamedQuery(name = "Pedidopc.findByEncargadopor", query = "SELECT p FROM Pedidopc p WHERE p.encargadopor = :encargadopor")})
 public class Pedidopc implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,6 +41,15 @@ public class Pedidopc implements Serializable {
     @NotNull
     @Column(name = "CANTIDADSOLICITADA")
     private int cantidadsolicitada;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CONFIGURACIONSOLICITADA")
+    private int configuracionsolicitada;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 9)
+    @Column(name = "ENCARGADOPOR")
+    private String encargadopor;
     @JoinColumn(name = "ESTADO", referencedColumnName = "IDESTADOVENTA")
     @ManyToOne(optional = false)
     private Estadoventapcs estado;
@@ -49,9 +61,11 @@ public class Pedidopc implements Serializable {
         this.idpedido = idpedido;
     }
 
-    public Pedidopc(Integer idpedido, int cantidadsolicitada) {
+    public Pedidopc(Integer idpedido, int cantidadsolicitada, int configuracionsolicitada, String encargadopor) {
         this.idpedido = idpedido;
         this.cantidadsolicitada = cantidadsolicitada;
+        this.configuracionsolicitada = configuracionsolicitada;
+        this.encargadopor = encargadopor;
     }
 
     public Integer getIdpedido() {
@@ -68,6 +82,22 @@ public class Pedidopc implements Serializable {
 
     public void setCantidadsolicitada(int cantidadsolicitada) {
         this.cantidadsolicitada = cantidadsolicitada;
+    }
+
+    public int getConfiguracionsolicitada() {
+        return configuracionsolicitada;
+    }
+
+    public void setConfiguracionsolicitada(int configuracionsolicitada) {
+        this.configuracionsolicitada = configuracionsolicitada;
+    }
+
+    public String getEncargadopor() {
+        return encargadopor;
+    }
+
+    public void setEncargadopor(String encargadopor) {
+        this.encargadopor = encargadopor;
     }
 
     public Estadoventapcs getEstado() {

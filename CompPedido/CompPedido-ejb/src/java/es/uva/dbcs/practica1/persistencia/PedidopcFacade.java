@@ -6,9 +6,11 @@
 package es.uva.dbcs.practica1.persistencia;
 
 import es.uva.dbcs.practica1.dominio.Pedidopc;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +29,15 @@ public class PedidopcFacade extends AbstractFacade<Pedidopc> implements Pedidopc
     public PedidopcFacade() {
         super(Pedidopc.class);
     }
+
+    @Override
+    public List<Pedidopc> pedidosNif(String nifcif) {
+        Query query = em.createNamedQuery("Pedidopc.findByEncargadopor");
+        query.setParameter("encargadopor", nifcif);
+        List<Pedidopc> peds = query.getResultList();
+        return peds;
+    }
+    
+    
     
 }
