@@ -38,6 +38,4 @@ public class PedidopcFacade extends AbstractFacade<Pedidopc> implements Pedidopc
         return peds;
     }
     
-    
-    
 }

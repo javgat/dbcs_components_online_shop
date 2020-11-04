@@ -5,6 +5,7 @@
  */
 package es.uva.dbcs.practica1.despliegue;
 
+import es.uva.dbcs.practica1.dominio.Estadoventapcs;
 import es.uva.dbcs.practica1.dominio.Pedidopc;
 import es.uva.dbcs.practica1.persistencia.PedidopcFacadeLocal;
 //import es.uva.dbcs.practica1.despliegue.CompCatalogoControladorRemote;
@@ -27,7 +28,7 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
     @Override
     public float importeAbonar(String nifcif) {
         try{
-            List<Pedidopc> peds = ppF.pedidosNif(nifcif);
+            List<Pedidopc> peds = ppF.pedidosNif(nifcif); //Este el namedqueries
             float precio = 0.0F;
 
             for(Pedidopc ped : peds){
@@ -35,18 +36,30 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
             }
             return precio;
         }catch(Exception e){
+            System.err.println(e);
             return -1.0F;
         }
     }
 
+    private int newPedidoId(){
+        List<Pedidopc> peds = ppF.findAll();
+        int id = 0;
+        for(Pedidopc ped:peds){
+            if (id < ped.getIdpedido())
+                id=ped.getIdpedido()+1;
+        }
+        return id;
+    }
+    
     @Override
     public Boolean addPedido(int cantidad, int idConfiguracion, String nifcif) {
-        int id = 0;
+        int id = newPedidoId();
         Pedidopc ped = new Pedidopc(id, cantidad, idConfiguracion, nifcif);
+        ped.setEstado(new Estadoventapcs((short)1));
         try{
             ppF.create(ped);
         }catch(Exception e){
-            System.out.println(e);
+            System.err.println(e);
             return false;
         }
         return true;
@@ -54,7 +67,14 @@ public class CompPedidoControlador implements CompPedidoControladorRemote {
 
     @Override
     public Boolean delPedido(int idConfiguracion, String nifcif) {
-        return null;
+        try{
+            Pedidopc ped = ppF.pedidosNif(nifcif).get(0);//namedqueries
+            ppF.remove(ped);
+        }catch(Exception e){
+            System.err.println(e);
+            return false;
+        }
+        return true;
     }
 
     
