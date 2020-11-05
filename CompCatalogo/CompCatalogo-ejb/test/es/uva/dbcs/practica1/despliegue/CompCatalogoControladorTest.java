@@ -53,7 +53,7 @@ public class CompCatalogoControladorTest {
         //EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         CompCatalogoControladorRemote instance = (CompCatalogoControladorRemote)container.getContext().lookup("java:global/classes/CompCatalogoControlador");
         List<Configuracionpc> result = instance.getCatalogo();
-        int expResult = 3;
+        int expResult = 1; //Antes 3
         assertEquals(expResult, result.get(0).getVelocidadcpu());  // velocidad CPU
         String expResult2 = "AMD"; // Tipo CPU
         assertEquals(expResult2, result.get(0).getTipocpu().getNombretipocpu());

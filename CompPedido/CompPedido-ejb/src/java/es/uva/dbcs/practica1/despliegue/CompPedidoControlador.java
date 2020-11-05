@@ -35,7 +35,7 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
 
             for(Pedidopc ped : peds){
                 if(ped.getEstado().getNombreestadoventa().equals("Completado"))
-                precio+= cccR.getPrecioTotal(ped.getConfiguracionsolicitada());
+                    precio+= cccR.getPrecioTotal(ped.getConfiguracionsolicitada())*ped.getCantidadsolicitada();
             }
             return precio;
         }catch(Exception e){
