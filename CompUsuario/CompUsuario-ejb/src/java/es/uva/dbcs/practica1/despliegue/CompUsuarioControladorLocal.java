@@ -7,7 +7,6 @@ package es.uva.dbcs.practica1.despliegue;
 
 import es.uva.dbcs.practica1.dominio.Empleado;
 import es.uva.dbcs.practica1.dominio.Empresa;
-import es.uva.dbcs.practica1.dominio.Usuario;
 import javax.ejb.Local;
 
 /**
@@ -16,14 +15,6 @@ import javax.ejb.Local;
  */
 @Local
 public interface CompUsuarioControladorLocal {
-
-    void create(Usuario usuario);
-
-    Usuario retrieve(String id);
-
-    void update(Usuario usuario);
-
-    void delete(Usuario usuario);
 
     Empresa getEmpresa(String nifcif);
 

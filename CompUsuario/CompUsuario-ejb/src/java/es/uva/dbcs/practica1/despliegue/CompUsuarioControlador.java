@@ -25,26 +25,6 @@ public class CompUsuarioControlador implements CompUsuarioControladorLocal {
     private UsuarioFacadeLocal uF;
 
     @Override
-    public void create(Usuario usuario) {
-        uF.create(usuario);
-    }
-
-    @Override
-    public Usuario retrieve(String id) {
-        return uF.find(id);
-    }
-
-    @Override
-    public void update(Usuario usuario) {
-        uF.edit(usuario);
-    }
-
-    @Override
-    public void delete(Usuario usuario) {
-        uF.remove(usuario);
-    }
-
-    @Override
     public Empresa getEmpresa(String nifcif) {
         /*Empresa emp = null;
         Usuario u = uF.find(nifcif);
