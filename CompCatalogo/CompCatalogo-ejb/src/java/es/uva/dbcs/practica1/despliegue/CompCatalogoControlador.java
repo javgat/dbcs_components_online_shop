@@ -32,6 +32,7 @@ public class CompCatalogoControlador implements CompCatalogoControladorRemote {
     private Integer newIdConfig(){
         List<Configuracionpc> cat = getCatalogo();
         int id = 0;
+        //Busqueda de un identificador valido para la base de datos
         for(Configuracionpc c:cat){
             if (id <= c.getIdconfiguracion())
                 id=c.getIdconfiguracion()+1;
@@ -51,10 +52,12 @@ public class CompCatalogoControlador implements CompCatalogoControladorRemote {
         conf.setMemoriatarjetagrafica(memTarGraf);
         conf.setTipocpu(new Cpu(idTipoCPU));
         Collection<Descripcioncomponente> descrs = new ArrayList();
+        //Busqueda de un identificador valido para la base de datos
         for(Integer i : idsDescrComp){
             descrs.add(new Descripcioncomponente(i));
         }
         conf.setDescripcioncomponenteCollection(descrs);
+
         try{
             cpcF.create(conf);
         }catch(Exception e){
@@ -67,7 +70,9 @@ public class CompCatalogoControlador implements CompCatalogoControladorRemote {
     public Boolean editConfiguracion(int idConfiguracion, int velCPU, int capRAM,
             int capDD, int velTarGraf, int memTarGraf, short idTipoCPU) {
         Configuracionpc conf = cpcF.find(idConfiguracion);
+        //se comprueba que la configuracion asociada al identificador dado existe
         if(conf!=null){
+            //si el valor es 0 no se modifica en la base de datos
             if(velCPU!=0)
                 conf.setVelocidadcpu(velCPU);
             if(capRAM!=0)

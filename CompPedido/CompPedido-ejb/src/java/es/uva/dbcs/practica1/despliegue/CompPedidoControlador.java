@@ -28,11 +28,11 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
     @Override
     public float importeAbonar(String nifcif) {
         try{
-            List<Pedidopc> peds = ppF.pedidosNif(nifcif); //Este el namedqueries
+            List<Pedidopc> peds = ppF.pedidosNif(nifcif); //namedqueries
             float precio = 0.0F;
             if(peds.isEmpty())
-                return -1.0F; //No estoy de acuerdo pero lo detecta como error?
-
+                return -1.0F; 
+            //Se suman todos los precios de los componentes de los pedidos del usuario
             for(Pedidopc ped : peds){
                 if(ped.getEstado().getNombreestadoventa().equals("Completado"))
                     precio+= cccR.getPrecioTotal(ped.getConfiguracionsolicitada())*ped.getCantidadsolicitada();
@@ -47,6 +47,7 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
     private int newPedidoId(){
         List<Pedidopc> peds = ppF.findAll();
         int id = 0;
+        //Busqueda de un nuevo id valido para la base de datos
         for(Pedidopc ped:peds){
             if (id <= ped.getIdpedido())
                 id=ped.getIdpedido()+1;

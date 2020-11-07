@@ -16,8 +16,18 @@ import javax.ejb.Local;
 @Local
 public interface CompUsuarioControladorLocal {
 
+    /**
+     * Obtiene una Entity de tipo Empresa a partir del identificador del usuario
+     * @param nifcif nif del usuario
+     * @return 
+     */
     Empresa getEmpresa(String nifcif);
-
+    
+    /**
+     * Obtiene una Entity de tipo Empleado a partir del identificado del usuario
+     * @param nifcif nif del usuario
+     * @return 
+     */
     Empleado getEmpleado(String nifcif);
     
 }

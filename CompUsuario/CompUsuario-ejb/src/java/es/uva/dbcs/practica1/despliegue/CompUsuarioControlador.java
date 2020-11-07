@@ -26,11 +26,6 @@ public class CompUsuarioControlador implements CompUsuarioControladorLocal {
 
     @Override
     public Empresa getEmpresa(String nifcif) {
-        /*Empresa emp = null;
-        Usuario u = uF.find(nifcif);
-        if(u!=null)
-            emp = u.getEmpresa();
-        return emp;*/
         return eF.find(nifcif);
     }
 
