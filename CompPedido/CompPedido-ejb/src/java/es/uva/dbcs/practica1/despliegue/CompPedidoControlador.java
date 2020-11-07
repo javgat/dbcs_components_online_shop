@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Stateless
 public class CompPedidoControlador implements CompPedidoControladorLocal {
@@ -28,7 +28,9 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
     @Override
     public float importeAbonar(String nifcif) {
         try{
-            List<Pedidopc> peds = ppF.pedidosNif(nifcif); //namedqueries
+            // La siguiente operacion que se ejecuta es por una namedquery, tal y como se indica en el enunciado
+            // Se puede comprobar en PedidopcFacadeLocal
+            List<Pedidopc> peds = ppF.pedidosNif(nifcif);
             float precio = 0.0F;
             if(peds.isEmpty())
                 return -1.0F; 
@@ -44,6 +46,9 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
         }
     }
 
+    /*
+    * Obtiene la nueva id valida para un pedido
+    */
     private int newPedidoId(){
         List<Pedidopc> peds = ppF.findAll();
         int id = 0;
@@ -54,6 +59,7 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
         }
         return id;
     }
+    
     
     @Override
     public Boolean addPedido(int cantidad, int idConfiguracion, String nifcif) {
@@ -72,7 +78,9 @@ public class CompPedidoControlador implements CompPedidoControladorLocal {
     @Override
     public Boolean delPedido(int idConfiguracion, String nifcif) {
         try{
-            Pedidopc ped = ppF.getPedidoNifId(nifcif, idConfiguracion);//namedqueries
+            // La siguiente operacion que se ejecuta es por una namedquery, tal y como se indica en el enunciado
+            // Se puede comprobar en PedidopcFacadeLocal
+            Pedidopc ped = ppF.getPedidoNifId(nifcif, idConfiguracion);
             ppF.remove(ped);
         }catch(Exception e){
             System.err.println(e);

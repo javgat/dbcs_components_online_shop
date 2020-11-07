@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Stateless
 public class CompUsuarioControlador implements CompUsuarioControladorLocal {
@@ -24,6 +24,7 @@ public class CompUsuarioControlador implements CompUsuarioControladorLocal {
     @EJB
     private UsuarioFacadeLocal uF;
 
+    // La documentacion de los metodos de clases que implementan esta en la interfaz
     @Override
     public Empresa getEmpresa(String nifcif) {
         return eF.find(nifcif);

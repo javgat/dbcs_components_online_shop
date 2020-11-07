@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Stateless
 public class CompCatalogoControlador implements CompCatalogoControladorRemote {
@@ -29,6 +29,9 @@ public class CompCatalogoControlador implements CompCatalogoControladorRemote {
         return cpcF.findAll();
     }
 
+    /*
+    * Metodo que obtiene el nuevo identificador para la base de datos
+    */
     private Integer newIdConfig(){
         List<Configuracionpc> cat = getCatalogo();
         int id = 0;

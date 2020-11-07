@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Entity
 @Table(name = "CPU")

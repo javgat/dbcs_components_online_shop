@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Stateless
 public class PedidopcFacade extends AbstractFacade<Pedidopc> implements PedidopcFacadeLocal {

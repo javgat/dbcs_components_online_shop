@@ -14,7 +14,7 @@ import org.junit.Ignore;
 
 /**
  *
- * @author cevp
+ * @author cevp. Modificado por Javier Gatón Herguedas y Javier Moro García
  */
 public class CompPedidoControladorTest {
     

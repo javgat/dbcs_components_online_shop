@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author cevp
+ * @author cevp. Modificado por Javier Gatón Herguedas y Javier Moro García
  */
 public class CompUsuarioControladorTest {
 

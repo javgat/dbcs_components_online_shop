@@ -9,7 +9,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Remote
 public interface CompPedidoControladorLocal {

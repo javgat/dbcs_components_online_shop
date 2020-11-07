@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Local
 public interface UsuarioFacadeLocal {
