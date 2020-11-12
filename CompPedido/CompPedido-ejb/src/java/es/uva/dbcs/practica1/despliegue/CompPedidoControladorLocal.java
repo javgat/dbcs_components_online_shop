@@ -5,13 +5,13 @@
  */
 package es.uva.dbcs.practica1.despliegue;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 /**
  *
  * @author Javier Gatón Herguedas y Javier Moro García
  */
-@Remote
+@Local
 public interface CompPedidoControladorLocal {
     /**
      * Devuelve el importe a abonar por los pedidos completados, solo 
