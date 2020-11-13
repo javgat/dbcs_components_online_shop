@@ -87,10 +87,10 @@
                 </table>
             </select>
             <br><br>
-            <input type="submit" value="Nueva Configuracion" name="boton"><br><br><!-- name era envio-->
-            <input type="submit" value="Editar Configuracion" name="boton"><br><br>
+            <input type="submit" value="Nueva Configuracion" name="envio"><br><br><!-- name era envio-->
+            <input type="submit" value="Editar Configuracion" name="envio"><br><br>
             <input type="reset" value="Vaciar">
-            <input type="submit" value="Salir" name="boton"><br><br>
+            <input type="submit" value="Salir" name="envio"><br><br>
         </form>
     </body>
 </html>

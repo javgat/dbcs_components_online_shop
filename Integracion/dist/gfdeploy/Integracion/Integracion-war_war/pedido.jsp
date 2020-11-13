@@ -4,7 +4,7 @@
     Author     : cevp
 --%>
 
-<%@page import="DominioCompCatalogo.Configuracionpc"%>
+<%@page import="es.uva.dbcs.practica1.dominio.Configuracionpc"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

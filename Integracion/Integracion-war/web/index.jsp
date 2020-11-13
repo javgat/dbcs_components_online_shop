@@ -18,8 +18,8 @@
         <form action="controladorIntegracion" name="ejemplo" method="get">
             NIF: <input type="text" name="NifCif"><br>
             Password: <input type="password" name="clave"><br><br>
-        <input type="submit" name="boton" value="Acceder Empleado">
-        <input type="submit" name="boton" value="Acceder Cliente">
+        <input type="submit" name="envio" value="Acceder Empleado">
+        <input type="submit" name="envio" value="Acceder Cliente">
         <input type="reset" value="Vaciar">
         </form>
         <% } else {%>
@@ -31,8 +31,8 @@
         <form action="controladorIntegracion" name="ejemplo" method="get">
             NIF: <input type="text" name="NifCif"><br>
             Password: <input type="password" name="clave"><br><br>
-        <input type="submit" name="boton" value="Acceder Empleado">
-        <input type="submit" name="boton" value="Acceder Cliente">
+        <input type="submit" name="envio" value="Acceder Empleado">
+        <input type="submit" name="envio" value="Acceder Cliente">
         <input type="reset" value="Vaciar">
         </form>
         <% } %>

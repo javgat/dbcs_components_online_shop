@@ -8,11 +8,14 @@ package es.uva.dbcs.practica1.integracion;
 import es.uva.dbcs.practica1.despliegue.CompCatalogoControladorRemote;
 import es.uva.dbcs.practica1.despliegue.CompPedidoControladorLocal;
 import es.uva.dbcs.practica1.despliegue.CompUsuarioControladorLocal;
+import es.uva.dbcs.practica1.dominio.Configuracionpc;
+import es.uva.dbcs.practica1.dominio.Descripcioncomponente;
 import es.uva.dbcs.practica1.dominio.Empleado;
 import es.uva.dbcs.practica1.dominio.Empresa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -127,7 +130,38 @@ public class controladorIntegracion extends HttpServlet {
         return url;
     }
     
+    private String hacerPedido(HttpSession session, HttpServletRequest request){
+        List<Configuracionpc> catalogo = cCatalogo.getCatalogo();
+        float precios[] = new float[catalogo.size()];
+        int i = 0;
+        for(Configuracionpc c : catalogo){
+            precios[i] = 0;
+            Collection<Descripcioncomponente> des = c.getDescripcioncomponenteCollection();
+            for(Descripcioncomponente d : des){
+                precios[i] += d.getPrecio();
+            }
+        }
+        session.setAttribute("mensaje", "");
+        session.setAttribute("catalogo", catalogo);
+        session.setAttribute("precios", precios);
+        return "pedido.jsp";
+    }
+    
+    private String borrarPedido(HttpSession session, HttpServletRequest request){
+        return "borrarPedido.jsp";
+    }
+    
+    private String importePedidosCompletados(HttpSession session, HttpServletRequest request){
+        return "importeAbonar.jsp";
+    }
 
+    private String comprar(HttpSession session, HttpServletRequest request){
+        String idConf = request.getParameter("idConf");
+        // try catch aqui
+        int cantidad = Integer.valueOf(request.getParameter("cantidad"));
+        
+        return "cliente.jsp";
+    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -142,8 +176,9 @@ public class controladorIntegracion extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String boton = request.getParameter("boton");
+        String boton = request.getParameter("envio");
         String url;
+        session.setAttribute("mensaje", "");
         switch(boton){
             case "Acceder Empleado":
                 url = accederEmpleado(session, request);
@@ -159,6 +194,18 @@ public class controladorIntegracion extends HttpServlet {
                 break;
             case "Salir":
                 url = salir(session, request);
+                break;
+            case "Hacer Pedido":
+                url = hacerPedido(session, request);
+                break;
+            case "Borrar Pedido":
+                url = borrarPedido(session, request);
+                break;
+            case "Importe Pedidos Completados":
+                url = importePedidosCompletados(session, request);
+                break;
+            case "Comprar":
+                url = comprar(session, request);
                 break;
             default:
                 url = "index.jsp";
