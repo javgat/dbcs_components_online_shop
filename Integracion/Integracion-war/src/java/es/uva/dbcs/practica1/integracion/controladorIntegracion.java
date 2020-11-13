@@ -56,6 +56,7 @@ public class controladorIntegracion extends HttpServlet {
             mensaje = "No existe un empleado con ese nifcif";
         }
         session.setAttribute("mensaje", mensaje);
+        session.setAttribute("nifcif", nifcif);
         return url;
     }
     
@@ -76,6 +77,7 @@ public class controladorIntegracion extends HttpServlet {
             mensaje = "No existe un cliente con ese nifcif";
         }
         session.setAttribute("mensaje", mensaje);
+        session.setAttribute("nifcif", nifcif);
         return url;
     }
     
@@ -133,13 +135,8 @@ public class controladorIntegracion extends HttpServlet {
     private String hacerPedido(HttpSession session, HttpServletRequest request){
         List<Configuracionpc> catalogo = cCatalogo.getCatalogo();
         float precios[] = new float[catalogo.size()];
-        int i = 0;
-        for(Configuracionpc c : catalogo){
-            precios[i] = 0;
-            Collection<Descripcioncomponente> des = c.getDescripcioncomponenteCollection();
-            for(Descripcioncomponente d : des){
-                precios[i] += d.getPrecio();
-            }
+        for(int i = 0; i < precios.length; i++){
+            precios[i] = cCatalogo.getPrecioTotal(catalogo.get(i).getIdconfiguracion());
         }
         session.setAttribute("mensaje", "");
         session.setAttribute("catalogo", catalogo);
@@ -148,18 +145,49 @@ public class controladorIntegracion extends HttpServlet {
     }
     
     private String borrarPedido(HttpSession session, HttpServletRequest request){
+        session.setAttribute("mensaje", "");
         return "borrarPedido.jsp";
     }
     
     private String importePedidosCompletados(HttpSession session, HttpServletRequest request){
+        String nifcif = (String) session.getAttribute("nifcif");
+        float imp = cPedido.importeAbonar(nifcif);
+        session.setAttribute("pago", imp);
         return "importeAbonar.jsp";
     }
 
     private String comprar(HttpSession session, HttpServletRequest request){
-        String idConf = request.getParameter("idConf");
-        // try catch aqui
-        int cantidad = Integer.valueOf(request.getParameter("cantidad"));
         
+        String nifcif = (String) session.getAttribute("nifcif");
+        // try catch aqui
+        int idConf = Integer.valueOf(request.getParameter("idConf"));
+        int cantidad = Integer.valueOf(request.getParameter("cantidad"));
+        boolean exito = cPedido.addPedido(cantidad, idConf, nifcif);
+        String mensaje;
+        if(exito){
+            mensaje = "Compra realizada con exito";
+        }else{
+            mensaje = "Error en la realización de la compra";
+        }
+        session.setAttribute("mensaje", mensaje);
+        return "cliente.jsp";
+    }
+    
+    private String eliminar(HttpSession session, HttpServletRequest request) {
+        int idConf = Integer.valueOf(request.getParameter("idConf"));
+        String nifcif = (String) session.getAttribute("nifcif");
+        boolean exito = cPedido.delPedido(idConf, nifcif);
+        String mensaje;
+        if(exito){
+            mensaje = "Pedido borrado con exito";
+        }else{
+            mensaje = "Error en el borrado del pedido";
+        }
+        session.setAttribute("mensaje", mensaje);
+        return "cliente.jsp";
+    }
+    
+    private String volver(HttpSession session, HttpServletRequest request) {
         return "cliente.jsp";
     }
     
@@ -207,12 +235,16 @@ public class controladorIntegracion extends HttpServlet {
             case "Comprar":
                 url = comprar(session, request);
                 break;
+            case "Eliminar":
+                url = eliminar(session, request);
+                break;
+            /*case "Volver":
+                url = volver(session, request);
+                break;*/
             default:
                 url = "index.jsp";
         }
-        /*
-        String usuario = (String) session.getAttribute("sessionUser")
-        */
+        
         response.sendRedirect(url);
         
     }
