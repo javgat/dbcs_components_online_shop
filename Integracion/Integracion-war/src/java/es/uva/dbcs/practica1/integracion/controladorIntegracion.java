@@ -38,6 +38,7 @@ public class controladorIntegracion extends HttpServlet {
     @EJB
     private CompUsuarioControladorLocal cUsuario;
 
+    private static final String errorNumberFormat = "Error, introduce un número en las casillas necesarias para la operación";
     
     private String accederEmpleado(HttpSession session, HttpServletRequest request){
         String nifcif = request.getParameter("NifCif");
@@ -83,45 +84,54 @@ public class controladorIntegracion extends HttpServlet {
     
     private String nuevaConfiguracion(HttpSession session, HttpServletRequest request){
         // Cadena vacia == 0 ?
-        int velCPU = Integer.valueOf(request.getParameter("velocidad"));
-        int capRAM = Integer.valueOf(request.getParameter("ram"));
-        int capDD = Integer.valueOf(request.getParameter("dd"));
-        int memTarGraf = Integer.valueOf(request.getParameter("memGraf"));
-        int velTarGraf = Integer.valueOf(request.getParameter("velGraf"));
-        short idTipoCPU = Short.valueOf(request.getParameter("tipoCPU"));
-        String componentes[] = request.getParameterValues("componentes");
-        List<Integer> idsDescrComp = new ArrayList();
-        for(String comp : componentes){
-            idsDescrComp.add(Integer.valueOf(comp));
-        }
-        boolean exito = cCatalogo.addConfiguracion(velCPU, capRAM, capDD, velTarGraf, memTarGraf, idTipoCPU, idsDescrComp);
-        String url = "empleado.jsp";
         String mensaje;
-        if(exito)
-            mensaje = "Operación realizada con éxito";
-        else
-            mensaje = "Error al realizar la última operación";
+        String url = "empleado.jsp";
+        try{
+            int velCPU = Integer.valueOf(request.getParameter("velocidad"));
+            int capRAM = Integer.valueOf(request.getParameter("ram"));
+            int capDD = Integer.valueOf(request.getParameter("dd"));
+            int memTarGraf = Integer.valueOf(request.getParameter("memGraf"));
+            int velTarGraf = Integer.valueOf(request.getParameter("velGraf"));
+            short idTipoCPU = Short.valueOf(request.getParameter("tipoCPU"));
+            
+            String componentes[] = request.getParameterValues("componentes");
+            List<Integer> idsDescrComp = new ArrayList();
+            for(String comp : componentes){
+                idsDescrComp.add(Integer.valueOf(comp));
+            }
+            boolean exito = cCatalogo.addConfiguracion(velCPU, capRAM, capDD, velTarGraf, memTarGraf, idTipoCPU, idsDescrComp);
+            
+            if(exito)
+                mensaje = "Operación realizada con éxito";
+            else
+                mensaje = "Error al realizar la última operación";
+        }catch(NumberFormatException e){
+            mensaje = errorNumberFormat;
+        }
         session.setAttribute("mensaje", mensaje);
         return url;
     }
     
     private String editarConfiguracion(HttpSession session, HttpServletRequest request){
-        
-        int idConf = Integer.valueOf(request.getParameter("idConf"));
-        int velCPU = Integer.valueOf(request.getParameter("velocidad"));
-        int capRAM = Integer.valueOf(request.getParameter("ram"));
-        int capDD = Integer.valueOf(request.getParameter("dd"));
-        int memTarGraf = Integer.valueOf(request.getParameter("memGraf"));
-        int velTarGraf = Integer.valueOf(request.getParameter("velGraf"));
-        short idTipoCPU = Short.valueOf(request.getParameter("tipoCPU"));
-        
-        boolean exito = cCatalogo.editConfiguracion(idConf, velCPU, capRAM, capDD, velTarGraf, memTarGraf, idTipoCPU);       
         String url = "empleado.jsp";
         String mensaje;
-        if(exito)
-            mensaje = "Operación realizada con éxito";
-        else
-            mensaje = "Error al realizar la última operación";
+        try{
+            int idConf = Integer.valueOf(request.getParameter("idConf"));
+            int velCPU = Integer.valueOf(request.getParameter("velocidad"));
+            int capRAM = Integer.valueOf(request.getParameter("ram"));
+            int capDD = Integer.valueOf(request.getParameter("dd"));
+            int memTarGraf = Integer.valueOf(request.getParameter("memGraf"));
+            int velTarGraf = Integer.valueOf(request.getParameter("velGraf"));
+            short idTipoCPU = Short.valueOf(request.getParameter("tipoCPU"));
+
+            boolean exito = cCatalogo.editConfiguracion(idConf, velCPU, capRAM, capDD, velTarGraf, memTarGraf, idTipoCPU);       
+            if(exito)
+                mensaje = "Operación realizada con éxito";
+            else
+                mensaje = "Error al realizar la última operación";
+        }catch(NumberFormatException e){
+            mensaje = errorNumberFormat;
+        }
         session.setAttribute("mensaje", mensaje);
         return url;
     }
@@ -157,37 +167,40 @@ public class controladorIntegracion extends HttpServlet {
     }
 
     private String comprar(HttpSession session, HttpServletRequest request){
-        
-        String nifcif = (String) session.getAttribute("nifcif");
-        // try catch aqui
-        int idConf = Integer.valueOf(request.getParameter("idConf"));
-        int cantidad = Integer.valueOf(request.getParameter("cantidad"));
-        boolean exito = cPedido.addPedido(cantidad, idConf, nifcif);
         String mensaje;
-        if(exito){
-            mensaje = "Compra realizada con exito";
-        }else{
-            mensaje = "Error en la realización de la compra";
+        try{
+            int idConf = Integer.valueOf(request.getParameter("idConf"));
+            int cantidad = Integer.valueOf(request.getParameter("cantidad"));
+            String nifcif = (String) session.getAttribute("nifcif");
+            boolean exito = cPedido.addPedido(cantidad, idConf, nifcif);
+
+            if(exito){
+                mensaje = "Compra realizada con exito";
+            }else{
+                mensaje = "Error en la realización de la compra";
+            }
+        }catch(NumberFormatException e){
+            mensaje = errorNumberFormat;
         }
         session.setAttribute("mensaje", mensaje);
         return "cliente.jsp";
     }
     
     private String eliminar(HttpSession session, HttpServletRequest request) {
-        int idConf = Integer.valueOf(request.getParameter("idConf"));
-        String nifcif = (String) session.getAttribute("nifcif");
-        boolean exito = cPedido.delPedido(idConf, nifcif);
         String mensaje;
-        if(exito){
-            mensaje = "Pedido borrado con exito";
-        }else{
-            mensaje = "Error en el borrado del pedido";
+        try{
+            String nifcif = (String) session.getAttribute("nifcif");
+            int idConf = Integer.valueOf(request.getParameter("idConf"));
+            boolean exito = cPedido.delPedido(idConf, nifcif);
+            if(exito){
+                mensaje = "Pedido borrado con exito";
+            }else{
+                mensaje = "Error en el borrado del pedido";
+            }
+        }catch(NumberFormatException e){
+            mensaje = errorNumberFormat;
         }
         session.setAttribute("mensaje", mensaje);
-        return "cliente.jsp";
-    }
-    
-    private String volver(HttpSession session, HttpServletRequest request) {
         return "cliente.jsp";
     }
     
@@ -238,9 +251,6 @@ public class controladorIntegracion extends HttpServlet {
             case "Eliminar":
                 url = eliminar(session, request);
                 break;
-            /*case "Volver":
-                url = volver(session, request);
-                break;*/
             default:
                 url = "index.jsp";
         }

@@ -17,7 +17,7 @@
         <h2>Importe a abonar por pedidos completados</h2>
         <p>Importe: <%= session.getAttribute("pago") %></p>
         <form action="cliente.jsp" name="ejemplo" method="get">
-            <input type="submit" value="Volver" name="envio">
+            <input type="submit" value="Volver">
         </form>
     </body>
 </html>
