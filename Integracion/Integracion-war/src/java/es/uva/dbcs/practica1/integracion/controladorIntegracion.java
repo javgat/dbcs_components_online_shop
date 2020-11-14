@@ -83,7 +83,7 @@ public class controladorIntegracion extends HttpServlet {
     }
     
     private String nuevaConfiguracion(HttpSession session, HttpServletRequest request){
-        // Cadena vacia == 0 ?
+        
         String mensaje;
         String url = "empleado.jsp";
         try{
