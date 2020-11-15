@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Javier
+ * @author Javier Gaton Herguedas y Javier Moro García
  */
 @WebServlet(name = "controladorIntegracion", urlPatterns = {"/controladorIntegracion"})
 public class controladorIntegracion extends HttpServlet {
