@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +22,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Javier
+ * @author Javier Gatón Herguedas y Javier Moro García
  */
 @Entity
 @Table(name = "ROLEMPLEADO")
@@ -41,7 +42,7 @@ public class Rolempleado implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "NOMBREROL")
     private String nombrerol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol", fetch=FetchType.EAGER)
     private Collection<Empleado> empleadoCollection;
 
     public Rolempleado() {
